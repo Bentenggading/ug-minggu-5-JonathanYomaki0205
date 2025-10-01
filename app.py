@@ -29,26 +29,26 @@ def process_data(news_list, comments_list):
 
     # isi comments_per_news dari comments_list
     for comment in comments_list:
-        idberita = comment['idBerita']
+        idnews = comment['idBerita']
         rating = int(comment['Rating'])
-        if idberita not in comments_per_news:
-            comments_per_news[idberita] = {'ratings': [], 'count': 0}
-        comments_per_news[idberita]['ratings'].append(rating)
-        comments_per_news[idberita]['count'] += 1
+        if idnews not in comments_per_news:
+            comments_per_news[idnews] = {'ratings': [], 'count': 0}
+        comments_per_news[idnews]['ratings'].append(rating)
+        comments_per_news[idnews]['count'] += 1
 
     # Buat list hasil gabungan
     result = []
     for n in news_list:
-        idberita = n['idBerita']
+        idnews = n['idBerita']
         headline = n['Headline']
-        if idberita in comments_per_news:
-            jumlah = comments_per_news[idberita]['count']
-            rata = sum(comments_per_news[idberita]['ratings']) / jumlah
+        if idnews in comments_per_news:
+            jumlah = comments_per_news[idnews]['count']
+            rata = sum(comments_per_news[idnews]['ratings']) / jumlah
         else:
             rata = 0
             jumlah = 0
         result.append({
-            'ID Berita': idberita,
+            'ID Berita': idnews,
             'Headline': headline,
             'Rata-rata Rating': round(rata, 2),
             'Jumlah Komentar': jumlah
